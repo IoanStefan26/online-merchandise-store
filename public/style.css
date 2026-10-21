@@ -1,0 +1,25 @@
+body {
+	background-color: #766d1e;
+}
+
+.product-image {
+	height: 180px;
+	object-fit: cover; /*imaginea umple tot spatiul fara a fi deformata*/
+}
+
+.card {
+	border-radius: 10px;
+}
+
+.navbar {
+	background-color: white;
+}
+
+.nav-link:not(.active):hover {
+	background-color: #e9ecef;
+}
+
+.nav-link:active,
+.btn:active {
+	transform: scale(0.97);
+}

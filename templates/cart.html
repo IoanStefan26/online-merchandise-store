@@ -1,0 +1,42 @@
+{% extends "_layout.html" %} <!--foloseste deja templateul comun-->
+
+{% block title %}Cart | Magazinul de Salam{% endblock %} <!--inlocuieste titlul doar aici-->
+
+{% block content %}
+	<h1 class="mb-4">Shopping Cart</h1> <!--lasa spatiu sub titlu-->
+
+	{% if products %}
+		<table class="table table-bordered bg-white"> <!--creeaza tabel BOotstrap-->
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Total</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<td>{{ product.name }}</td>
+						<td>{{ product.quantity }}</td>
+						<td>{{ "%.2f"|format(product.price) }} RON</td>
+						<td>{{ "%.2f"|format(product.total) }} RON</td>
+						<td> <!--aici punem butonul de remove, am facut butonul rosu ca in filme :))-->
+							<a href="/cart/remove-item?id={{ product.id }}" class="btn btn-danger btn-sm">Remove</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<h3>Total: {{ "%.2f"|format(total) }} RON</h3>
+
+		<a href="/checkout" class="btn btn-success mt-3">Proceed to checkout</a>
+	{% else %}
+		<p>Your cart is empty.</p>
+		<a href="/" class="btn btn-primary">Back to products</a>
+	{% endif %}
+{% endblock %}

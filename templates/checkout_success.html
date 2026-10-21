@@ -1,0 +1,14 @@
+{% extends "_layout.html" %} <!--foloseste acelasi layout comun-->
+
+{% block title %}Order placed | Magazinul de Salam{% endblock %}
+
+{% block content %}
+	<div class="alert alert-success">
+		<!--creeaza o alerta bootstrap verde, ajuta la accesibilitate-->
+		<h1>Order placed</h1>
+		<p>Thank you, {{ order.full_name }}. Your order was submitted.</p>
+		<!--ia numele din formular si ti-l foloseste-->
+	</div>
+
+	<a href="/" class="btn btn-primary">Back to products</a>
+{% endblock %}

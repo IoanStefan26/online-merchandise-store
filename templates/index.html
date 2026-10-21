@@ -1,0 +1,24 @@
+{% extends "_layout.html" %} <!-- layotul comun al siteului-->
+
+{% block title %}Produse | Magazinul de Salam{% endblock %}
+
+{% block content %}
+	<h1  class="mb-3">Produse</h1>
+
+	<div class="row"> <!--rand de Bootsrap-->
+		{% for product in products %} <!--parcurgem produsele-->
+			<div class="col-3 mb-4"> <!--avem 12 coloane pentru 4 produse-->
+				<div class="card h-100"> <!--inaltam un pic cardurile pt aspect vizual-->
+					<img src="{{ url_for('static', filename=product.image) }}" class="card-img-top product-image" alt="{{ product.name }}"> <!--afisam imaginea -->
+
+					<div class="card-body">
+						<h5 class="card-title">{{ product.name }}</h5>
+						<p class="card-text">{{ product.description }}</p>
+						<p class="card-text">{{ "%.2f"|format(product.price) }} RON</p>
+						<a href="/cart/add-item?id={{ product.id }}" class="btn btn-primary">Add to cart</a> <!--link ce e folositor la adaugarea produsului in cart-->
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

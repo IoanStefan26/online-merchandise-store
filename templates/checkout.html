@@ -1,0 +1,73 @@
+{% extends "_layout.html" %}
+
+{% block title %}Checkout | Magazinul de Salam{% endblock %}
+
+{% block content %}
+	<h1 class="mb-4">Checkout</h1>
+
+	{% if products %}
+		<h3>Order summary</h3>
+
+		<table class="table table-bordered bg-white">
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+
+			<tbody> <!--cod de jinja, parcurge produsele din cos si le afiseaza-->
+				{% for product in products %}
+					<tr>
+						<td>{{ product.name }}</td>
+						<td>{{ product.quantity }}</td>
+						<td>{{ "%.2f"|format(product.total) }} RON</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<h3 class="mb-4">Total: {{ "%.2f"|format(total) }} RON</h3>
+
+		<form method="post" action="/checkout" class="bg-white p-4 border rounded">
+            <!--creeaza formularul de checkout, datele vor fi trimise prin POST-->
+			<div class="mb-3">
+				<label class="form-label">Full name</label> <!--afiseaza un input pentru nume-->
+				<input type="text" name="full_name" class="form-control" required>
+                <!--browserul nu te lasa sa trimiti formularul daca inputul e gol >:)-->
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Email</label>
+				<input type="email" name="email" class="form-control" required>
+                <!--type email verifica superficial daca valoarea seamana cu un email-->
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label">Phone</label>
+				<input type="text" name="phone" class="form-control" required>
+			</div> <!--il facem text, nu numar, ca sa nu riscam pierderea primului 0-->
+
+			<div class="mb-3">
+				<label class="form-label">Address</label>
+				<textarea name="address" class="form-control" required></textarea>
+			</div> <!--loc pt adresa-->
+
+			<div class="mb-3"> <!--aicic cream un dropdown-->
+				<label class="form-label">Payment method</label>
+				<select name="payment_method" class="form-select" required>
+					<option value="card">Card</option>
+					<option value="bank_transfer">Bank transfer</option>
+					<option value="cash">Cash</option>
+				</select>
+			</div>
+
+			<button type="submit" class="btn btn-success">Place order</button>
+            <!--apasarea duce la cererea post catre /checkout-->
+		</form>
+	{% else %}
+		<p>Your cart is empty.</p> <!--daca nu are produse omul, nu are sens sa ii dam formularul-->
+		<a href="/" class="btn btn-primary">Back to products</a>
+	{% endif %}
+{% endblock %}
